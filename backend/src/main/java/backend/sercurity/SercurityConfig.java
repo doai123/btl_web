@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -30,20 +28,12 @@ public class SercurityConfig {
     public UserDetailsService userDetailsService() {
         return khachHangService;
     }
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        System.out.println("Authenticate........!");
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(authenticationProvider())
-                .build();
-    }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(khachHangService);
         provider.setPasswordEncoder(passwordEncoder());
-        System.out.println("AuthenticationProvider initialized!");
         return provider;
     }
 
@@ -57,7 +47,7 @@ public class SercurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
-                .requestMatchers("/req/login", "/req/signup", "/css/**", "/js/**","/check-auth").permitAll()  // Cho phép đăng ký, CSS, JS không cần xác thực
+                .requestMatchers("/req/login", "/req/signup", "/css/**", "/js/**").permitAll()  // Cho phép đăng ký, CSS, JS không cần xác thực
                 .requestMatchers("/SanPham/**", "/SanPham/image/**").permitAll()  // Các trang sản phẩm không cần xác thực
                 .requestMatchers(HttpMethod.DELETE, "/SanPham/**").hasRole("ADMIN").
                  requestMatchers(HttpMethod.PUT, "/SanPham/**").hasRole("ADMIN").

@@ -3,10 +3,10 @@
     import backend.domain.KhachHang;
     import backend.repository.KhachHangRepository;
     import backend.service.AuthenticationServices;
+    import backend.util.Jwt;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.HttpStatus;
     import org.springframework.http.ResponseEntity;
-    import org.springframework.security.core.Authentication;
     import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
@@ -15,9 +15,12 @@
     import java.util.HashMap;
     import java.util.List;
     import java.util.Map;
+    import java.util.Optional;
 
     @Controller
     public class KhachHangController {
+        @Autowired
+        private Jwt jwt;
         @Autowired
         private AuthenticationServices authenticationServices;
         @Autowired
@@ -40,22 +43,36 @@
         }
 
         @PostMapping("/req/login")
-        public String login(@RequestParam("username") String username,
-                            @RequestParam("password") String password,
-                            Model model) {
+        public ResponseEntity<Map<String, Object>> login(@RequestParam("username") String username,
+                                                         @RequestParam("password") String password) {
+            Map<String, Object> response = new HashMap<>();
+            Optional<KhachHang> khachHang = khachHangRepository.findByTen(username);
+
             if (username.isEmpty() || password.isEmpty()) {
-                model.addAttribute("error", "Username and password are required");
-                return "login";  // Trả lại trang login nếu thông tin không hợp lệ
-            }
-            boolean login = authenticationServices.login(username, password);
-            if (login) {
-                return "redirect:/";
-            } else {
-                model.addAttribute("error", "Invalid username or password");  // Thông báo lỗi nếu đăng nhập thất bại
-                return "login";
+                response.put("error","Username and password are required");
+                return ResponseEntity.badRequest().body(response); // Trả về lỗi 400 nếu thiếu thông tin
             }
 
+            long login = authenticationServices.login(username, password);
+
+            if (login > 0) {
+                try {
+                    // Tạo token JWT sau khi đăng nhập thành công
+                    String token = jwt.generateToken(username, "userRole"); // Cập nhật theo cách lấy role của người dùng
+                    response.put("token", token); // Gửi token về cho frontend
+                    response.put("makhachhang",login);
+                    response.put("ten",khachHang.get().getTen());
+                    return ResponseEntity.ok(response); // Trả về mã 200 với token
+                } catch (Exception e) {
+                    response.put("error", "Error generating JWT token: " + e.getMessage());
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); // Trả về lỗi 500 nếu gặp vấn đề
+                }
+            } else {
+                response.put("error", "Invalid username or password");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); // Trả về lỗi 401 nếu đăng nhập thất bại
+            }
         }
+
         @DeleteMapping("delete/delete-all")
         public ResponseEntity<Map<String, String>> deleteAll() {
             Map<String, String> response = new HashMap<>();
@@ -107,10 +124,38 @@
 
                 khachHangRepository.save(khachHang);
 
-                response.put("message", "/endpoints/req/login");
                 return ResponseEntity.ok(response);
             }
         }
+        @PostMapping("/admin-login")
+        public ResponseEntity<?> generateAdminToken(@RequestParam String username) {
+            try {
+                // Kiểm tra người dùng trong cơ sở dữ liệu
+                Optional<KhachHang> khachHang = khachHangRepository.findByTen(username);
+
+                if (khachHang.isPresent()) {
+                    String role = khachHang.get().getRoles();
+
+                    // Kiểm tra nếu người dùng là admin
+                    if ("ROLE_ADMIN".equals(role)) {
+                        String token = jwt.generateToken(username, role); // Tạo token
+                        return ResponseEntity.ok(token); // Trả về token nếu thành công
+                    } else {
+                        throw new RuntimeException("User is not an admin");
+                    }
+                } else {
+                    throw new RuntimeException("User not found");
+                }
+            } catch (RuntimeException e) {
+                // Bắt lỗi và trả về thông báo rõ ràng
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            } catch (Exception e) {
+                // Bắt các lỗi không mong muốn
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("An unexpected error occurred: " + e.getMessage());
+            }
+        }
+
         @GetMapping("/get-all")
         public ResponseEntity<List<KhachHang>> getAll() {
             List<KhachHang> customers = khachHangRepository.findAll();
@@ -126,13 +171,4 @@
                     .map(customer -> ResponseEntity.ok(customer))
                     .orElseGet(() -> ResponseEntity.notFound().build());
         }
-        @GetMapping("/check-auth")
-        public ResponseEntity<String> checkAuth(Authentication authentication) {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                return ResponseEntity.status(401).body("Not authenticated");
-            }
-            return ResponseEntity.ok("Authenticated as " + authentication.getName());
-        }
-
-
     }

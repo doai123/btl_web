@@ -3,9 +3,9 @@
 # Bài tập lớn - Phát triển ứng dụng web
 
 ## Thông tin sinh viên
-- **Họ và tên**: _________
-- **MSSV**: _________
-- **Lớp**: _________
+- **Họ và tên**: Khổng Tiến Dương + Tống Văn Đoài
+- **MSSV**: 2221050522+ 2221050785
+- **Lớp**: DCCTCT67_04B + DCCTCT67_04A
 
 ## Giới thiệu
 Đây là yêu cầu của bài tập lớn cho học phần Phát triển ứng dụng web + BTL (mã học phần 7080116). Sinh viên sẽ xây dựng một ứng dụng web hoàn chỉnh sử dụng một trong các công nghệ sau: NodeJS và Express, .NET, hoặc Web với Dart (**web-only**), Web với Flutter (**multi-platform**) hay một framework tương tự nhằm tăng tốc phát triển. Bài tập lớn này yêu cầu sinh viên áp dụng các kiến thức đã học về lập trình giao diện người dùng, web động theo mô hình Client-Server, tích hợp API hoặc/và CSDL, kiểm thử tự động và CI/CD với GitHub Actions.
@@ -58,14 +58,48 @@ Bài tập lớn nhằm:
 Sinh viên viết báo cáo kết quả trực tiếp vào phần này để tránh tạo ra nhiều file báo cáo. Báo cáo cần bao gồm các nội dung sau:
 
 1. **Giới thiệu ứng dụng**: Mô tả ngắn gọn về ứng dụng, mục tiêu và các chức năng chính.
+       - Ứng dụng về web bán điện thoại cơ bản
+       - Mục tiêu: làm theo mô hình mvc, tập tiếp cận các chức năng cơ bản của ứng dụng 
+       - Các chức năng chính: -Restful api, token jws
+                              - Lưu trữ sản phẩm, chỉnh sửa sản phẩm
+                              - Đăng nhập đăng kí
+                              -Tìm kiếm
+
 
 2. **Hình ảnh giao diện**: Chèn hình ảnh giao diện chính và các chức năng của ứng dụng. Đảm bảo hình ảnh rõ ràng và mô tả đầy đủ các phần của giao diện.
+                        - Ảnh trang chủ : ![anh trang chu ](../anh.png), có header và đăng nhập đăng kí
+                        -Ảnh Đăng nhập :![anh dang nhap](../anh4.png) , đăng nhập bằng email và password
+                        - Ảnh đăng kí : ![anh đăng kí](../anh3.png), đăng kí bằng các tài khoản khách hàng
+                        - Ảnh giỏ hàng : ![anh gio hang](../anh1.png), giỏ hàng chứa trạng thái sản phẩm, gồm các sản phẩm đã mua và chưa mua, xóa sản phẩm
+                        -ảnh sản phẩm: ![anh san pham](../anh2.png), sản phẩm của cửa hàng
+                        - ảnh footer: ![footer](../anh5.png), ảnh footer giao diện ở trang chính, chăm sóc khách hàng, tư vấn, giải đáp thắc mắc,...
+                        -Giao diện sản phẩm shop: ![shop](../anh6.png), danh sách sản phẩm 
+                        
+
+
+
+
 
 3. **Mô tả chức năng**: Mô tả chi tiết các chức năng của ứng dụng, bao gồm các thao tác CRUD, quản lý trạng thái, tích hợp API hoặc CSDL, kiểm thử tự động và CI/CD.
+                       -CRUD(1 số tiêu biểu):  -Đăng nhập: https://doubleshop.linkpc.net/Login
+                                               - Đăng kí: https://doubleshop.linkpc.net/Signup
+                                               -Lấy sản phẩm theo id (GET): https://doubleshop.linkpc.net/SanPham/{id}
+                                               - Thêm sản phẩm (POST) : https://doubleshop.linkpc.net/SanPham
+                                               -Chỉnh sửa sản phẩm (PUT) : https://doubleshop.linkpc.net/SanPham/{id}
+                                               -Xóa sản phẩm (Delete): https://doubleshop.linkpc.net/SanPham/{id}
+
+                       - quản lí trạng thái: bằng jwt, tạo token để xác thực người dùng
+                       - CSDL : tích hợp MYsql, liên kết với spring boot  
+                       - Kiểm thử tự động: dùng jest và cypress để kiểm thử 
+                       - CI/CD: Git action file deploy.yml dùng để deploy ứng dụng tự động nhanh chóng, File testing.yml để test ứng dụng                  
 
 4. **Video demo (nếu có)**: Chèn liên kết đến video demo ứng dụng hoạt động. Video không quá 5 phút, trình bày rõ ràng các chức năng chính và cách sử dụng ứng dụng.
 
 5. **Tự đánh giá điểm**: Sinh viên tự đánh giá điểm của mình theo tiêu chí đánh giá đã đề ra. Ghi rõ điểm tự đánh giá và lý do.
+
+        - Điểm: 10/10
+        -Lý do: - hoàn thiện tất cả các tiêu chí đề ra
+                - Thêm tính năng :Đẩy lên Docker, xác thực, tạo token jwt,...
 
 ## Yêu cầu nộp bài
 - **Source code**: Sinh viên cần nhận bài tập từ GitHub Classroom và nộp mã nguồn của ứng dụng theo đúng cấu trúc yêu cầu.
