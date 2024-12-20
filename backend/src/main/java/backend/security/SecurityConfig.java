@@ -18,6 +18,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable()) // Disable CSRF
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/req/login", "/req/signup").permitAll() // Allow access without authentication
+                        .requestMatchers(HttpMethod.POST,"/reset-password").permitAll()
                         .requestMatchers(HttpMethod.POST, "/admin-login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/SanPham/**").permitAll() // Public API
                         .requestMatchers("/get/**", "/get-all", "/delete/**").hasRole("ADMIN") // Protected endpoints

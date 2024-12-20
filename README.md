@@ -3,9 +3,9 @@
 # Bài tập lớn - Phát triển ứng dụng web
 
 ## Thông tin sinh viên
-- **Họ và tên**: Khổng Tiến Dương + Tống Văn Đoài
-- **MSSV**: 2221050522+ 2221050785
-- **Lớp**: DCCTCT67_04B + DCCTCT67_04A
+- **Họ và tên**: Tống Văn Đoài
+- **MSSV**: 2221050785
+- **Lớp**: DCCTCT67_04A
 
 ## Giới thiệu
 Đây là yêu cầu của bài tập lớn cho học phần Phát triển ứng dụng web + BTL (mã học phần 7080116). Sinh viên sẽ xây dựng một ứng dụng web hoàn chỉnh sử dụng một trong các công nghệ sau: NodeJS và Express, .NET, hoặc Web với Dart (**web-only**), Web với Flutter (**multi-platform**) hay một framework tương tự nhằm tăng tốc phát triển. Bài tập lớn này yêu cầu sinh viên áp dụng các kiến thức đã học về lập trình giao diện người dùng, web động theo mô hình Client-Server, tích hợp API hoặc/và CSDL, kiểm thử tự động và CI/CD với GitHub Actions.
@@ -67,13 +67,13 @@ Sinh viên viết báo cáo kết quả trực tiếp vào phần này để tr�
 
 
 2. **Hình ảnh giao diện**: Chèn hình ảnh giao diện chính và các chức năng của ứng dụng. Đảm bảo hình ảnh rõ ràng và mô tả đầy đủ các phần của giao diện.
-                        - Ảnh trang chủ : ![anh trang chu ](../anh.png), có header và đăng nhập đăng kí
-                        -Ảnh Đăng nhập :![anh dang nhap](../anh4.png) , đăng nhập bằng email và password
-                        - Ảnh đăng kí : ![anh đăng kí](../anh3.png), đăng kí bằng các tài khoản khách hàng
-                        - Ảnh giỏ hàng : ![anh gio hang](../anh1.png), giỏ hàng chứa trạng thái sản phẩm, gồm các sản phẩm đã mua và chưa mua, xóa sản phẩm
-                        -ảnh sản phẩm: ![anh san pham](../anh2.png), sản phẩm của cửa hàng
-                        - ảnh footer: ![footer](../anh5.png), ảnh footer giao diện ở trang chính, chăm sóc khách hàng, tư vấn, giải đáp thắc mắc,...
-                        -Giao diện sản phẩm shop: ![shop](../anh6.png), danh sách sản phẩm 
+                        - Ảnh trang chủ: ![anh trang chu](assets/anh3.png), có header và đăng nhập đăng ký
+                        - Ảnh Đăng nhập: ![anh dang nhap](assets/anh4.png), đăng nhập bằng email và password
+                        - Ảnh Đăng ký: ![anh dang ki](assets/anh2.png), đăng ký bằng các tài khoản khách hàng
+                        - Ảnh Giỏ hàng: ![anh gio hang](assets/anh.png), giỏ hàng chứa trạng thái sản phẩm, gồm các sản phẩm đã mua và chưa mua, xóa sản phẩm
+                        - Ảnh Sản phẩm: ![anh san pham](assets/anh1.png), sản phẩm của cửa hàng
+                        - Ảnh Footer: ![footer](assets/anh5.png), ảnh footer giao diện ở trang chính, chăm sóc khách hàng, tư vấn, giải đáp thắc mắc,...
+                        - Giao diện Sản phẩm Shop: ![shop](assets/anh6.png), danh sách sản phẩm
                         
 
 
@@ -99,7 +99,11 @@ Sinh viên viết báo cáo kết quả trực tiếp vào phần này để tr�
 
         - Điểm: 10/10
         -Lý do: - hoàn thiện tất cả các tiêu chí đề ra
-                - Thêm tính năng :Đẩy lên Docker, xác thực, tạo token jwt,...
+                - Thêm tính năng :
+                + xác thực người dùng bằng jwt
+                + Triển khai server nginx (https)
+                + domain
+                + Triển khai docker để quản lý toàn bộ ứng dụng (portainer) và deploy một cách dễ dàng
 
 ## Yêu cầu nộp bài
 - **Source code**: Sinh viên cần nhận bài tập từ GitHub Classroom và nộp mã nguồn của ứng dụng theo đúng cấu trúc yêu cầu.

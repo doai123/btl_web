@@ -85,7 +85,7 @@
   pointer-events: none;
   transition: all 0.3s ease;
   background: transparent;
-  bottom: 2px; /* Khoảng cách 2px từ viền dưới của input */
+  bottom: 18px;
 }
 
 /* Đảm bảo label vẫn giữ vị trí trong input khi không nhập chữ */

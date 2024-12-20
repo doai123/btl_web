@@ -125,13 +125,14 @@
   pointer-events: none;
   transition: all 0.3s ease;
   background: transparent;
-  bottom: 2px; /* Khoảng cách 2px từ viền dưới của input */
+  bottom: 20px; /* Khoảng cách 2px từ viền dưới của input */
 }
 
 /* Khi input có giá trị hoặc được focus */
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label {
   top: -18px; /* Nâng label lên khi focus hoặc có giá trị */
+  /* left: 1000; */
   font-size: 20px;
   color: #831f92;  /* Màu tím khi có input */
   animation: colorChange 2s infinite; /* Hiệu ứng đổi màu liên tục */
@@ -161,6 +162,24 @@
 .input-group input:not(:focus):not(:placeholder-shown) + label {
   color: #000; /* Màu chữ đen khi không có input */
 }
+/* CSS cho nút Forgot Password */
+.switch-mode {
+  font-size: 13px;
+  color: #0066cc;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  /* bottom: 50; */
+  /* margin-top: 10px; */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.switch-mode:hover {
+  background-color: transparent;
+  text-decoration: none;
+}
+
 
 
 
